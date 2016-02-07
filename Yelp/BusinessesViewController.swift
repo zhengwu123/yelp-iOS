@@ -8,13 +8,19 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController,  UITableViewDataSource, UITableViewDelegate {
+class BusinessesViewController: UIViewController,  UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var businesses: [Business]!
+    var searchBar: UISearchBar!
+    @IBOutlet weak var navBar: UINavigationItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar = UISearchBar()
+        navBar.titleView = searchBar
+        searchBar.delegate = self
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -59,6 +65,57 @@ class BusinessesViewController: UIViewController,  UITableViewDataSource, UITabl
         let cell = tableView.dequeueReusableCellWithIdentifier("buisnessCell", forIndexPath: indexPath) as! BuisnessCell
         cell.business = businesses[indexPath.row]
         return cell
+    }
+    
+    // SEARCH FUNCTIONS
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        self.view.endEditing(true)
+        var i = 0
+        let textToMatch: String = searchBar.text!
+        while i < businesses!.count {
+            let b = businesses![i]
+            let bName = b.name
+            let abbreviatedBName = bName!.substringToIndex(bName!.startIndex.advancedBy(textToMatch.characters.count))
+            if (textToMatch == abbreviatedBName) {
+                i++
+            } else {
+                businesses?.removeAtIndex(i)
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+        
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        var i = 0
+        let textToMatch: String = searchBar.text!
+        while i < businesses!.count {
+            let b = businesses![i]
+            let bName = b.name
+            let abbreviatedBName = bName!.substringToIndex(bName!.startIndex.advancedBy(textToMatch.characters.count))
+            if (textToMatch == abbreviatedBName) {
+                i++
+            } else {
+                businesses?.removeAtIndex(i)
+            }
+        }
+        self.tableView.reloadData()
+    }
+
+    @IBAction func tapDetected(sender: AnyObject) {
+        self.searchBar.endEditing(true)
     }
     
     

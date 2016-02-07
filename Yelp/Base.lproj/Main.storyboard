@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Yelp-->
+        <!--Businesses View Controller-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
                 <viewController id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="92" width="320" height="135"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4d7-gr-Oq7" id="BHQ-Zg-blj">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="134.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AKn-Bw-x7g">
@@ -74,7 +74,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="0.07 mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grM-YZ-kJx">
-                                                    <rect key="frame" x="270" y="8" width="41.5" height="14.5"/>
+                                                    <rect key="frame" x="270" y="8" width="42" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -119,19 +119,29 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="VBY-gq-v8E" firstAttribute="top" secondItem="5xN-E5-2eu" secondAttribute="bottom" id="1RJ-g2-1pW"/>
                             <constraint firstItem="5xN-E5-2eu" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="topMargin" id="aaj-lb-23H"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5xN-E5-2eu" secondAttribute="trailing" constant="-20" id="c9x-ad-ujO"/>
                             <constraint firstItem="5xN-E5-2eu" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leadingMargin" constant="-20" id="jQd-FC-sUC"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="YEV-x8-BCO" appends="YES" id="OS7-ac-Ygz"/>
+                        </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp" id="C4m-FD-jfv"/>
+                    <navigationItem key="navigationItem" id="C4m-FD-jfv"/>
                     <connections>
+                        <outlet property="navBar" destination="C4m-FD-jfv" id="JWb-Be-W94"/>
                         <outlet property="tableView" destination="5xN-E5-2eu" id="v5S-kG-1Pq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="YEV-x8-BCO">
+                    <connections>
+                        <action selector="tapDetected:" destination="2xI-yr-O5N" id="OUh-Bd-qhG"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1485" y="338"/>
         </scene>
