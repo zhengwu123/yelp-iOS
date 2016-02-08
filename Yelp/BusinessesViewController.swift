@@ -14,6 +14,7 @@ class BusinessesViewController: UIViewController,  UITableViewDataSource, UITabl
     var businesses: [Business]!
     var searchBar: UISearchBar!
     @IBOutlet weak var navBar: UINavigationItem!
+    var textToSearch="Thai"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,24 +70,37 @@ class BusinessesViewController: UIViewController,  UITableViewDataSource, UITabl
     
     // SEARCH FUNCTIONS
     
+    func updateSearch() {
+        Business.searchWithTerm(textToSearch, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
+            for business in businesses {
+                print(business.name!)
+                print(business.address!)
+            }
+        })
+    }
+    
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        
     }
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
         self.view.endEditing(true)
-        var i = 0
-        let textToMatch: String = searchBar.text!
-        while i < businesses!.count {
-            let b = businesses![i]
-            let bName = b.name
-            let abbreviatedBName = bName!.substringToIndex(bName!.startIndex.advancedBy(textToMatch.characters.count))
-            if (textToMatch == abbreviatedBName) {
-                i++
-            } else {
-                businesses?.removeAtIndex(i)
-            }
-        }
-        self.tableView.reloadData()
+        updateSearch()
+//        var i = 0
+//        let textToMatch: String = searchBar.text!
+//        while i < businesses!.count {
+//            let b = businesses![i]
+//            let bName = b.name
+//            let abbreviatedBName = bName!.substringToIndex(bName!.startIndex.advancedBy(textToMatch.characters.count))
+//            if (textToMatch == abbreviatedBName) {
+//                i++
+//            } else {
+//                businesses?.removeAtIndex(i)
+//            }
+//        }
+//        self.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -99,19 +113,21 @@ class BusinessesViewController: UIViewController,  UITableViewDataSource, UITabl
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        var i = 0
-        let textToMatch: String = searchBar.text!
-        while i < businesses!.count {
-            let b = businesses![i]
-            let bName = b.name
-            let abbreviatedBName = bName!.substringToIndex(bName!.startIndex.advancedBy(textToMatch.characters.count))
-            if (textToMatch == abbreviatedBName) {
-                i++
-            } else {
-                businesses?.removeAtIndex(i)
-            }
-        }
-        self.tableView.reloadData()
+        textToSearch = searchText
+//        updateSearch()
+//        var i = 0
+//        let textToMatch: String = searchBar.text!
+//        while i < businesses!.count {
+//            let b = businesses![i]
+//            let bName = b.name
+//            let abbreviatedBName = bName!.substringToIndex(bName!.startIndex.advancedBy(textToMatch.characters.count))
+//            if (textToMatch == abbreviatedBName) {
+//                i++
+//            } else {
+//                businesses?.removeAtIndex(i)
+//            }
+//        }
+//        self.tableView.reloadData()
     }
 
     @IBAction func tapDetected(sender: AnyObject) {
